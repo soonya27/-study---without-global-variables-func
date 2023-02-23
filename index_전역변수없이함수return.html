@@ -48,11 +48,6 @@
             <p class="display-date" id="displayMonth"></p>
             <button id="btnNextMonth">다음달</button>
         </div>
-        <div class="btn-wrap">
-            <button id="btnPrevDate">이전날</button>
-            <p class="display-date" id="displayDate"></p>
-            <button id="btnNextDate">다음날</button>
-        </div>
     </div>
     <script src="/main.js"></script>
     <script>
@@ -80,22 +75,19 @@
 
 
 
-        let CURRENT_DATE = createDateUpdater(toDayMonth); //전역변수대신 함수를 지정후 그 함수내의 지역변수지정
+        function createMonthUpdater(currentDate) {
+            let finalDate = currentDate;
 
-        document.querySelector('#displayDate').innerHTML = formatDateOption(toDayMonth, 3, 'day');
-        /*--------------------------------------------------------------
-            prev
-        --------------------------------------------------------------*/
-        document.querySelector('#btnPrevDate').addEventListener('click', function () {
-            document.querySelector('#displayDate').innerHTML = formatDateOption(CURRENT_DATE('-'), 3, 'day');
-        });
-
-        /*--------------------------------------------------------------
-            next
-        --------------------------------------------------------------*/
-        document.querySelector('#btnNextDate').addEventListener('click', function () {
-            document.querySelector('#displayDate').innerHTML = formatDateOption(CURRENT_DATE('+'), 3, 'day');
-        });
+            function monthIncDec(sort) {
+                if (sort == '+') {
+                    finalDate = new Date(finalDate.getFullYear(), finalDate.getMonth() + 1, finalDate.getDate());
+                } else {
+                    finalDate = new Date(finalDate.getFullYear(), finalDate.getMonth() - 1, finalDate.getDate());
+                }
+                return finalDate;
+            }
+            return monthIncDec;
+        }
 
 
 
